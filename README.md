@@ -226,3 +226,24 @@ mysql> select batting.id, batting.year, batting.HR, player.name, team.name
 mysql>
 ```
 
+## 集計
+
+SQLには，最大値を取得する関数が備わっている．
+使用例を以下に示す．
+ここでは，ホームラン数（項目名：HR）の最大値を調べている．
+
+```
+mysql> select max(HR) from batting;
++---------+
+| max(HR) |
++---------+
+|      52 |
++---------+
+1 row in set (0.00 sec)
+
+mysql>
+```
+
+さて，年間52本のホームラン数を記録したのは誰でしょう？
+これを調べる
+これを
