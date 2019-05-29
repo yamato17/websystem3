@@ -159,13 +159,18 @@ R | 打点
 SQLにおいて，表の結合はいくつかの種類があり，最もよく使うのが```inner join```である．
 使い方であるが，```from batting innerjoin player```のように```from```の後ろにメインとなるテーブル名を書き，その後に```innserjoin```と結合するテーブルを記述する．
 
-そして，最も重要なのがその後にある```on```の項目である．この例でh
+そして，最も重要なのがその後にある```on```の項目である．
+この例では```on batting.player_id = player.id```となっている．
+これは，```batting```テーブルの```player_id```と```player```テーブルの```id```が同じになるように結合することを意味している．
 
 また，```select```の後の，表示項目欄にテーブル名が付いている．
 これは，複数のテーブルからデータを取得するので，テーブル名がないとどの項目かわからなくなってしまうのを防ぐためである．
 
 ```
-mysql> select batting.id,batting.year,batting.HR,player.name from batting innerjoin player on batting.player_id = player.id limit 10;
+mysql> select batting.id, batting.year, batting.HR, player.name
+ from batting
+ innerjoin player on batting.player_id = player.id
+ limit 10;
 +----+------+------+--------------+
 | id | year | HR   | name         |
 +----+------+------+--------------+
@@ -185,4 +190,39 @@ mysql> select batting.id,batting.year,batting.HR,player.name from batting innerj
 mysql>
 ```
 
+## 練習問題
+
+上の例のように，打撃成績のid，年度，ホームラン数と球団名を表示するqeryを記述せよ．
+なお，選手名は不要である．
+
+## 3つの表の結合
+
+続いて，3つのテーブルを結合してみよう．
+その場合，```innerjoin```と```on```の組が増えることとなる．
+具体的な例を以下に示す．
+
+```
+mysql> select batting.id, batting.year, batting.HR, player.name, team.name
+ from batting
+ inner join player on batting.player_id = player.id
+ inner join team on batting.team_id = team.id
+ limit 10;
++----+------+------+--------------+-----------------+
+| id | year | HR   | name         | name            |
++----+------+------+--------------+-----------------+
+|  1 | 1992 |    0 | イチロー     | オリックス      |
+|  2 | 1993 |    1 | イチロー     | オリックス      |
+|  3 | 1994 |   13 | イチロー     | オリックス      |
+|  4 | 1995 |   25 | イチロー     | オリックス      |
+|  5 | 1996 |   16 | イチロー     | オリックス      |
+|  6 | 1997 |   17 | イチロー     | オリックス      |
+|  7 | 1998 |   13 | イチロー     | オリックス      |
+|  8 | 1999 |   21 | イチロー     | オリックス      |
+|  9 | 2000 |   12 | イチロー     | オリックス      |
+| 10 | 1981 |    0 | 秋山幸二     | 西武            |
++----+------+------+--------------+-----------------+
+10 rows in set (0.00 sec)
+
+mysql>
+```
 
