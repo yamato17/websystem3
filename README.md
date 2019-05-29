@@ -50,6 +50,7 @@ mysql: [Warning] Using a password on the command line interface can be insecure.
 ここまできちんとできていることを，データを閲覧して確認してみよう．
 今回例として使用したのは日本プロ野球の打撃成績である．
 年度ごとの打撃成績，選手名，球団名をそれぞれテーブルとしている．
+なお，データは日本野球機構の[個人年度別成績](http://npb.jp/bis/players/)より抜粋した．
 
 まずはmysqlコマンドの起動．
 
