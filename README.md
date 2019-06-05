@@ -274,6 +274,51 @@ mysql>
 
 ## おまけ
 
-``
-select c.name, max(batting.HR) as HR from batting as p inner join player as c on ( p.player_id = c.id ) group by p.player_id;
-``
+選手名と，年間ホームラン数を表示する場合は以下のようなqueryを組めば良い．
+
+```
+mysql> select player.name, max(batting.HR)  from batting inner join player  on ( batting.player_id = player.id ) group by batting.player_id;
++--------------+-----------------+
+| name         | max(batting.HR) |
++--------------+-----------------+
+| イチロー     |              25 |
+| 秋山幸二     |              43 |
+| 落合博満     |              52 |
++--------------+-----------------+
+3 rows in set (0.01 sec)
+
+mysql>
+```
+
+ちょっと長くて入力しづらいので，以下のように```as```を用いて短くする例を示す．
+ここで，pはplayerの別名を，bはbattingの別名を示す．
+
+```
+mysql> select p.name, max(b.HR) from batting as b inner join player as p on ( b.player_id = p.id ) group by b.player_id;
++--------------+-----------+
+| name         | max(b.HR) |
++--------------+-----------+
+| イチロー     |        25 |
+| 秋山幸二     |        43 |
+| 落合博満     |        52 |
++--------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql>
+```
+
+どちらの表記でも良いが，後々プログラムから使用する際に項目名が```max(batting.HR)```のように長いと使いづらいので，そこだけは別名を定義するほうが良い．
+
+```
+mysql> select p.name, max(b.HR) as HR from batting as b inner join player as p on ( b.player_id = p.id ) group by b.player_id;
++--------------+------+
+| name         | HR   |
++--------------+------+
+| イチロー     |   25 |
+| 秋山幸二     |   43 |
+| 落合博満     |   52 |
++--------------+------+
+3 rows in set (0.00 sec)
+
+mysql>
+```
